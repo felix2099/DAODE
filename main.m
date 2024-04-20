@@ -19,7 +19,7 @@ DAODEMatrix=zeros(runNumber,Max_FES);
 s=zeros(1,runNumber);
 DAODE_FES = zeros(1,Max_FES);
 
-for k=26:26
+for k=1:30
     func_num=k;
     if k==2
        continue;
