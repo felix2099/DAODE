@@ -8,13 +8,13 @@ fbias=[100,200,300,400,500,600,700,...
        2600,2700,2800,2900,3000];
 eps = 1e-10;
 trace=zeros(gen_max,2);   
-bounds=border*ones(D,2);  %ÉèÖÃ±ß½ç
+bounds=border*ones(D,2);  
 bounds(:,1)=-1*bounds(:,1);
 rng=(bounds(:,2)-bounds(:,1))';    
-x=(ones(NP,1)*rng).*(rand(NP,D))+(ones(NP,1)*bounds(:,1)');%³õÊ¼ÖÖÈº
+x=(ones(NP,1)*rng).*(rand(NP,D))+(ones(NP,1)*bounds(:,1)');
 r=zeros(gen_max,14);
-Pb=inf; %cost(1);%´æ·Å×îÓÅÖµ
-Xb=x(1,:);%´æ·Å×îÓÅÎ»ÖÃ
+Pb=inf; 
+Xb=x(1,:);
 count=1;
 cost=zeros(1,NP);
 
@@ -26,7 +26,6 @@ for i=1:NP
     end
 end
 
-%ÖÖÈº³õÊ¼»¯²ÉÓÃ¶àÑùĞÔ×î´óµÄ²ßÂÔ
 for i = 1:NP
     ox(i,:) = INI_OBL_POOL(D,NP,cost,RANK_DIV,count,x,i,Xb,Pb);
     if (feval(fhd,ox(i,:)',varargin{:})-fbias(func_num)) < (feval(fhd,x(i,:)',varargin{:})-fbias(func_num))
@@ -57,48 +56,43 @@ for count = 2 : gen_max
     if fitFEs_count > Max_FES
         break;
     end
-    
-%     superior_archive_gbest = zeros(0.2*NP,D); %´Ë´¦ÉèÖÃ´æµµ£¬±£´æÃ¿´úµÄÓÅÊÆ¸öÌå 
-%     middle_archive_gbest = zeros(0.5*NP,D);   %´Ë´¦ÉèÖÃ´æµµ£¬±£´æÃ¿´úµÄÖĞ¼ä¸öÌå
-%     inferior_archive_gbest = zeros(0.3*NP,D); %´Ë´¦ÉèÖÃ´æµµ£¬±£´æÃ¿´úµÄÁÓÊÆ¸öÌå
-    
-    %ÎªÅÅĞò½á¹û·ÖÅäÄÚ´æ£¬¼Ó¿ìÔËĞĞËÙ¶È£¬Ã¿´úÔËĞĞºó¹éÁã
+
     superior_fit = zeros(1,NP);
     middle_fit = zeros(1,NP);
     inferior_fit = zeros(1,NP);
-    %ÔÚ´Ë¶ÔÖÖÈº¸öÌå½øĞĞÅÅĞò
-    [pop_value,pop_index] = sort(cost); % pop_value ÅÅĞòºóÊÊÓ¦Öµ£»pop_index ÅÅĞòºóÊÊÓ¦ÖµµÄË÷ÒıÖµ¡£
-    [~,pop_rank] = sort(pop_index);     % pop_rank µÃ³öÖÖÈºÊÊÓ¦ÖµÅÅÃû  ÅÅÃû¶ÔÓ¦ÓÚcostÔ­Ê¼Öµ
+    
+    [pop_value,pop_index] = sort(cost); 
+    [~,pop_rank] = sort(pop_index);     
 
     for i = 1 : length(cost)
-        if pop_rank(i) <= 20  % ÓÅÊÆ¸öÌåÅÅÃûÎª[1,20]  
-           superior_fit(1,i) = pop_value(pop_rank(i));   % ´Ë´¦µÃµ½µÄÊÇÊÊÓ¦Öµ£¬¶ø·Ç¸öÌåµÄÎ»ÖÃ 
-           superior_fit(superior_fit == 0) = [];       % È¥³ıÊı×éÖĞ0ÔªËØ
+        if pop_rank(i) <= 20  
+           superior_fit(1,i) = pop_value(pop_rank(i));   
+           superior_fit(superior_fit == 0) = [];       
            j = 0;
            for ii = 1 : NP
-                if (cost(1,ii) <= max(superior_fit))  % ÕÒµ½¶ÔÓ¦µÄ¸öÌå
+                if (cost(1,ii) <= max(superior_fit))  
                     j = j + 1;
                     superior_archive_gbest(j,:) = x(ii,:); 
                 end
            end           
            
-        elseif (pop_rank(i) >= 21)  && (pop_rank(i) <= 70)  % ÖĞ¼ä¸öÌåÅÅÃûÎª[21,70]            
+        elseif (pop_rank(i) >= 21)  && (pop_rank(i) <= 70)             
            middle_fit(1,i) = pop_value(pop_rank(i));    
            middle_fit(middle_fit == 0) = [];
            k = 0;
            for ii = 1 : NP
-                if (cost(1,ii) >= min(middle_fit) & cost(1,ii) <= max(middle_fit))  % ÕÒµ½¶ÔÓ¦µÄ¸öÌå
+                if (cost(1,ii) >= min(middle_fit) & cost(1,ii) <= max(middle_fit))  
                     k = k + 1;
                     middle_archive_gbest(k,:) = x(ii,:);                    
                 end
            end
            
-        else                                            % ÁÓÊÆ¸öÌåÅÅÃûÎª[71,100]            
+        else                                                     
            inferior_fit(1,i) = pop_value(pop_rank(i));
            inferior_fit(inferior_fit == 0) = [];
            m = 0;
            for ii = 1 : NP
-                if (cost(1,ii) >= min(inferior_fit))  % ÕÒµ½¶ÔÓ¦µÄ¸öÌå
+                if (cost(1,ii) >= min(inferior_fit))  
                     m = m + 1;
                     inferior_archive_gbest(m,:) = x(ii,:);            
                 end
@@ -115,8 +109,6 @@ for count = 2 : gen_max
         jrand=floor(rand*D+1);
         for k=1:D
             if(rand<CR||jrand==k)
-%                 trial(k)=x(c,k)+F*(x(a,k)-x(b,k));
-%                 trial(k)=middle_archive_gbest(c,k)+F*(superior_archive_gbest(a,k)-inferior_archive_gbest(b,k));
                 trial(k)=superior_archive_gbest(a,k)+F*(middle_archive_gbest(c,k)-inferior_archive_gbest(b,k));
             else
                 trial(k)=x(i,k);
@@ -129,30 +121,28 @@ for count = 2 : gen_max
             end
         end
 
-        %¶ÁÈ¡¶àÑùĞÔºÍÊÊÓ¦¶ÈÅÅÃû
-%         p=count/gen_max; %sqrt(2*count/gen_max); 
-        p = 0.5+0.5*cos(i/gen_max*(D/10)*pi); %Èı½Çº¯Êı
-%         p = acos(2*i/gen_max-1)/pi;   %·´Èı½Çº¯Êı
-        [~,index] = sort((p * RANK_DIV(count,2:14) + (1-p) * RANK_FIT(count,2:14)));   %×ÛºÏÅÅÃû
+        p = 0.5+0.5*cos(i/gen_max*(D/10)*pi); 
+
+        [~,index] = sort((p * RANK_DIV(count,2:14) + (1-p) * RANK_FIT(count,2:14)));   
         [~,r(count,2:14)]=sort(index);
        
-        if ((feval(fhd,trial(:),varargin{:})-fbias(func_num)) <= max(superior_fit))   % ÅĞ¶Ï´Ë¸öÌåÊÇ·ñÊôÓÚÓÅÊÆ¸öÌå
+        if ((feval(fhd,trial(:),varargin{:})-fbias(func_num)) <= max(superior_fit))   
             T = 1;
-            OBL_POOL(D,NP,pop_rank,count,x,r,i,Xb,T);   % Ñ¡Ôñ¶àÑùĞÔ½ÏĞ¡ºÍÊÕÁ²½Ï¿ìµÄ²ßÂÔ£¬ÅÅÃûÂÔ²îµÄ²ßÂÔ
+            OBL_POOL(D,NP,pop_rank,count,x,r,i,Xb,T);  
              
-        elseif ((feval(fhd,trial(:),varargin{:})-fbias(func_num)) <= max(middle_fit)) & ((feval(fhd,trial(:),varargin{:})-fbias(func_num)) >= min(middle_fit))  % ÅĞ¶Ï´Ë¸öÌåÊÇ·ñÊôÓÚÖĞ¼ä¸öÌå
+        elseif ((feval(fhd,trial(:),varargin{:})-fbias(func_num)) <= max(middle_fit)) & ((feval(fhd,trial(:),varargin{:})-fbias(func_num)) >= min(middle_fit))  % åˆ¤æ–­æ­¤ä¸ªä½“æ˜¯å¦å±äºä¸­é—´ä¸ªä½“
             T = 2;
-            OBL_POOL(D,NP,pop_rank,count,x,r,i,Xb,T);   % Ñ¡Ôñ¶àÑùĞÔºÍÊÕÁ²ËÙ¶ÈÖĞ¼äµÄ²ßÂÔ£¬¸ßË¹²úÉúËæ»ú²ßÂÔ            
+            OBL_POOL(D,NP,pop_rank,count,x,r,i,Xb,T);              
              
-        elseif ((feval(fhd,trial(:),varargin{:})-fbias(func_num)) >= min(inferior_fit))   % ÅĞ¶Ï´Ë¸öÌåÊÇ·ñÊôÓÚÁÓÊÆ¸öÌå
+        elseif ((feval(fhd,trial(:),varargin{:})-fbias(func_num)) >= min(inferior_fit))   
             T = 3;
-            OBL_POOL(D,NP,pop_rank,count,x,r,i,Xb,T);   % Ñ¡ÔñÅÅÃû½ÏºÃµÄ²ßÂÔ
+            OBL_POOL(D,NP,pop_rank,count,x,r,i,Xb,T);  
         end              
 
         
         oxscore=feval(fhd,ox(i,:)',varargin{:})-fbias(func_num);                            
         trialscore=feval(fhd,trial(:),varargin{:})-fbias(func_num);  
-        fitFEs_count = fitFEs_count + 1;    %¼ÇÂ¼ÆÀ¹À´ÎÊı
+        fitFEs_count = fitFEs_count + 1;    
         xiscore=cost(i);
         
         xmin=xiscore;
@@ -168,10 +158,6 @@ for count = 2 : gen_max
               
         if cost(i) <= Pb
             Pb=cost(i);
-%             if Pb <= eps
-%                 Pb = 0;
-%                 cost(i) = 0;
-%             end
             Xb(1:D)=x(i,1:D);
         end  
     new_FEs = fitFEs_count;
@@ -182,7 +168,7 @@ for count = 2 : gen_max
     trace(count,1)=count;
     trace(count,2)=Pb;
     
-end  %µü´úÑ­»·½áÊø
+end  
 
 end
 
