@@ -30,14 +30,14 @@ for k=26:26
     
     %%% Read diversity and fitness ranking data%%%
     if D==10 
-        RD_path='E:\MATLAB\project\DAODE\save_data\RANK_DIV_10\';
-        RF_path='E:\MATLAB\project\DAODE\save_data\RANK_FIT_10\';
+        RD_path='...\DAODE\save_data\RANK_DIV_10\';
+        RF_path='...\DAODE\save_data\RANK_FIT_10\';
     elseif D==30
-        RD_path='E:\MATLAB\project\DAODE\save_data\RANK_DIV_30\';
-        RF_path='E:\MATLAB\project\DAODE\save_data\RANK_FIT_30\';
+        RD_path='...\DAODE\save_data\RANK_DIV_30\';
+        RF_path='...\DAODE\save_data\RANK_FIT_30\';
     elseif D==50
-        RD_path='E:\MATLAB\project\DAODE\save_data\RANK_DIV_50\';
-        RF_path='E:\MATLAB\project\DAODE\save_data\RANK_FIT_50\';
+        RD_path='...\DAODE\save_data\RANK_DIV_50\';
+        RF_path='...\DAODE\save_data\RANK_FIT_50\';
     end
     RD_filename=strcat('RD','_',int2str(D),'D_F',int2str(k),'.mat');
     load([RD_path,RD_filename]); 
