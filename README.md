@@ -1,10 +1,10 @@
-# Dynamic allocation of opposition-based learning in differential evolution for multi-role individuals #
+# Dynamic allocation of opposition-based learning in differential evolution for multi-role individuals (DAODE)
 
-# This is an academic paper published in Electronic Research Archive. You can retrieve it via the following link:https://doi.org/10.3934/era.2024149. #
+# This is an academic paper published in Electronic Research Archive. You can retrieve it via the following link:https://doi.org/10.3934/era.2024149. 
 
 The following is some important information about it:
-"Title": Lens imaging opposition-based learning for differential evolution with cauchy perturbation
-"Journal": Applied Soft Computing
+"Title": Dynamic allocation of opposition-based learning in differential evolution for multi-role individuals.
+"Journal": Electronic Research Archive.
 "Author": Jian Guan, Fei Yu, Hongrun Wu, Yingpin Chen, Zhenglong Xiang, Xuewen Xia, Yuanxiang Li.
 "keywords": metaheuristic algorithms (MAs); opposition-based learning; differential evolution (DE); dynamic allocation; ranking mechanism.
 
