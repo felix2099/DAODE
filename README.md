@@ -1,7 +1,14 @@
 # Dynamic allocation of opposition-based learning in differential evolution for multi-role individuals #
-# Jian Guan  Fei Yu et al. #
-# paper code               #
 
+# This is an academic paper published in Electronic Research Archive. You can retrieve it via the following link:https://doi.org/10.3934/era.2024149. #
+
+The following is some important information about it:
+"Title": Lens imaging opposition-based learning for differential evolution with cauchy perturbation
+"Journal": Applied Soft Computing
+"Author": Jian Guan, Fei Yu, Hongrun Wu, Yingpin Chen, Zhenglong Xiang, Xuewen Xia, Yuanxiang Li.
+"keywords": metaheuristic algorithms (MAs); opposition-based learning; differential evolution (DE); dynamic allocation; ranking mechanism.
+
+The following is the main information of the code：
 main.m : It is a main file.
 DAODE.m : The core implementation code of DAODE.
 OBL_POOL.m : The execution program of the OBL policy pool.
