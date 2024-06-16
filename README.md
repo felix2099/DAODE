@@ -1,6 +1,7 @@
 # Dynamic allocation of opposition-based learning in differential evolution for multi-role individuals #
 # Jian Guan  Fei Yu et al. #
 # paper code               #
+
 main.m : It is a main file.
 DAODE.m : The core implementation code of DAODE.
 OBL_POOL.m : The execution program of the OBL policy pool.
